@@ -49,7 +49,6 @@
                 <b><a class="navbar-brand" href="index.html">T A X V E R</a></b>
             </div>
             <!-- /.navbar-header -->
-            
             <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
@@ -67,16 +66,17 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a><i class="fa fa-home fa-fw"></i> Inicio </a>
+                            <a asp-controller="Principal" asp-action="Index"><i class="fa fa-home fa-fw"></i> Inicio </a>
                         </li>
                         <li>
                             <a><i class="fa fa-users fa-fw"></i> Conductores<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class="fa fa-plus fa-fw"></i> Agregar conductores</a>
+                                    <a asp-controller="Conductores" asp-action="Create"><i class="fa fa-eye fa-fw"></i> Ver conductores</a>
+
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> Ver conductores</a>
+                                    <a asp-controller="Conductores" asp-action="Ver"><i class="fa fa-plus fa-fw"></i> Agregar conductores</a>
                                 </li>
                             </ul>
                         </li>
@@ -84,16 +84,22 @@
                             <a href="#"><i class="fa fa-car fa-fw"></i> Unidades<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class="fa fa-plus fa-fw"></i> Agregar unidades</a>
+                                    <a asp-controller="Unidades" asp-action="Create"><i class="fa fa-plus fa-fw"></i> Agregar unidades</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-eye fa-fw"></i> Ver unidades</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-briefcase fa-fw"></i> Objetos perdidos</a>
+                                    <a asp-controller="Unidades" asp-action="Ver"><i class="fa fa-eye fa-fw"></i> Ver unidades</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a asp-controller="Viajes" asp-action="Index"><i class="fa fa-map fa-fw"></i> Viajes</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Mantenimiento" asp-action="Index"><i class="fa fa-wrench fa-fw"></i> Mantenimiento</a>
+                        </li>
+                        <li>
+                            <a asp-controller="ObjetosPerdidos" asp-action="Index"><i class="fa fa-briefcase fa-fw"></i> Objetos perdidos</a>
                         </li>
                     </ul>
                 </div>
@@ -102,25 +108,72 @@
             <!-- /.navbar-static-side -->
         </nav>
         <div id="page-wrapper">
-                @RenderBody()
-        </div>    
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="~/lib/Template/vendor/jquery/jquery.min.js"></script>
+            @RenderBody()
+        </div>
+        <!-- /#wrapper -->
+        <!-- jQuery -->
+        <script src="~/lib/Template/vendor/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="~/lib/Template/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/lib/Template/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="~/lib/Template/vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="~/lib/Template/vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="~/lib/Template/vendor/raphael/raphael.min.js"></script>
-    <script src="~/lib/Template/vendor/morrisjs/morris.min.js"></script>
-    <script src="~/lib/Template/data/morris-data.js"></script>
+        <!-- Morris Charts JavaScript -->
+        <script src="~/lib/Template/vendor/raphael/raphael.min.js"></script>
+        <script src="~/lib/Template/vendor/morrisjs/morris.min.js"></script>
+        <script src="~/lib/Template/data/morris-data.js"></script>
+        <script src="~/lib/Template/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="~/lib/Template/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+        <script src="~/lib/Template/vendor/datatables-responsive/dataTables.responsive.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="~/lib/Template/dist/js/sb-admin-2.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="~/lib/Template/dist/js/sb-admin-2.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(document).on("click",'.alta' ,function (evt) {
+                    var id = $(this).val();
+                    $.get("/Unidades/Status/" + $(this).val(), function (event) {                        
+                        $("#status").empty();
+                        $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status"));
+                    });
+                });
+                $(document).on("click", '.baja',function (evt) {
+                    var id = $(this).val();
+                    $.get("/Unidades/Status/" + $(this).val(), function (event) {                        
+                        $("#status").empty();
+                        $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status"));
+                    });
+                });
+                $("#table").dataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+            });
+        </script>
 
 </body>
 

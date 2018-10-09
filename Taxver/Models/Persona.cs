@@ -5,6 +5,11 @@ namespace Taxver.Models
 {
     public partial class Persona
     {
+        public Persona()
+        {
+            Conductor = new HashSet<Conductor>();
+        }
+
         public int IdPersona { get; set; }
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
@@ -18,5 +23,6 @@ namespace Taxver.Models
 
         public Usuarios IdUsuarioNavigation { get; set; }
         public Vehiculo IdVehiculoNavigation { get; set; }
+        public ICollection<Conductor> Conductor { get; set; }
     }
 }

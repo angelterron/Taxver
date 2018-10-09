@@ -7,7 +7,7 @@ namespace Taxver.Models
     {
         public Seguro()
         {
-            Vehiculo = new HashSet<Vehiculo>();
+            FechasSeguro = new HashSet<FechasSeguro>();
         }
 
         public int IdSeguro { get; set; }
@@ -17,6 +17,6 @@ namespace Taxver.Models
         public int? Status { get; set; }
         public string Descripcion { get; set; }
 
-        public ICollection<Vehiculo> Vehiculo { get; set; }
+        public ICollection<FechasSeguro> FechasSeguro { get; set; }
     }
 }
