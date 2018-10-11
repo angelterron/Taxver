@@ -9,21 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>T A X V E R</title>
-
     <!-- Bootstrap Core CSS -->
-    <link href="~/lib/Template/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="~/lib/Template/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
+    <link href="~/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="~/lib/Template/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="~/dist/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="~/lib/Template/vendor/morrisjs/morris.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="~/lib/Template/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,145 +29,218 @@
 </head>
 
 <body>
-    <div id="wrapper">
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin5">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                </div>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <b><a class="navbar-brand" href="index.html">T A X V E R</a></b>
-            </div>
-            <!-- /.navbar-header -->
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left mr-auto">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                             </div>
-                            <!-- /input-group -->
                         </li>
-                        <li>
-                            <a asp-controller="Principal" asp-action="Index"><i class="fa fa-home fa-fw"></i> Inicio </a>
-                        </li>
-                        <li>
-                            <a><i class="fa fa-users fa-fw"></i> Conductores<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a asp-controller="Conductores" asp-action="Create"><i class="fa fa-eye fa-fw"></i> Ver conductores</a>
-
-                                </li>
-                                <li>
-                                    <a asp-controller="Conductores" asp-action="Ver"><i class="fa fa-plus fa-fw"></i> Agregar conductores</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-car fa-fw"></i> Unidades<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a asp-controller="Unidades" asp-action="Create"><i class="fa fa-plus fa-fw"></i> Agregar unidades</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Unidades" asp-action="Ver"><i class="fa fa-eye fa-fw"></i> Ver unidades</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a asp-controller="Viajes" asp-action="Index"><i class="fa fa-map fa-fw"></i> Viajes</a>
-                        </li>
-                        <li>
-                            <a asp-controller="Mantenimiento" asp-action="Index"><i class="fa fa-wrench fa-fw"></i> Mantenimiento</a>
-                        </li>
-                        <li>
-                            <a asp-controller="ObjetosPerdidos" asp-action="Index"><i class="fa fa-briefcase fa-fw"></i> Objetos perdidos</a>
-                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
                     </ul>
                 </div>
-                <!-- /.sidebar-collapse -->
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav" class="p-t-30">
+                        <li class="sidebar-item"> <a asp-controller="Principal" asp-action="Inicio" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Conductores </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Create" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Agregar conductores </span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ver conductores </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Unidades </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Create" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Agregar unidades</span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ver unidades </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Viajes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Mantenimiento</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Objetos perdidos</span></a></li>
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
             </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-        <div id="page-wrapper">
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
             @RenderBody()
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
         </div>
-        <!-- /#wrapper -->
-        <!-- jQuery -->
-        <script src="~/lib/Template/vendor/jquery/jquery.min.js"></script>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="~/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="~/dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <!-- <script src="~/dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- Charts js Files -->
+    <script src="~/assets/libs/flot/excanvas.js"></script>
+    <script src="~/assets/libs/flot/jquery.flot.js"></script>
+    <script src="~/assets/libs/flot/jquery.flot.pie.js"></script>
+    <script src="~/assets/libs/flot/jquery.flot.time.js"></script>
+    <script src="~/assets/libs/flot/jquery.flot.stack.js"></script>
+    <script src="~/assets/libs/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/dist/js/pages/chart/chart-page-init.js"></script>
+    <script src="~/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="~/dist/js/pages/mask/mask.init.js"></script>
+    <script src="~/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
+    <script src="~/assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
+    <script src="~/assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
+    <script src="~/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/quill/dist/quill.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="~/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="~/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="~/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="~/lib/Template/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="~/lib/Template/vendor/metisMenu/metisMenu.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#inicioF').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                language: 'es'
+            });
+            $('#vencimientoF').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                language: 'es'
+            });
 
-        <!-- Morris Charts JavaScript -->
-        <script src="~/lib/Template/vendor/raphael/raphael.min.js"></script>
-        <script src="~/lib/Template/vendor/morrisjs/morris.min.js"></script>
-        <script src="~/lib/Template/data/morris-data.js"></script>
-        <script src="~/lib/Template/vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="~/lib/Template/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-        <script src="~/lib/Template/vendor/datatables-responsive/dataTables.responsive.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="~/lib/Template/dist/js/sb-admin-2.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $(document).on("click",'.alta' ,function (evt) {
-                    var id = $(this).val();
-                    $.get("/Unidades/Status/" + $(this).val(), function (event) {                        
-                        $("#status").empty();
-                        $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status"));
-                    });
-                });
-                $(document).on("click", '.baja',function (evt) {
-                    var id = $(this).val();
-                    $.get("/Unidades/Status/" + $(this).val(), function (event) {                        
-                        $("#status").empty();
-                        $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status"));
-                    });
-                });
-                $("#table").dataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    }
+            $(document).on("click", '.alta', function (evt) {
+                var id = $(this).val();
+                $.get("/Unidades/Status/" + $(this).val(), function (event) {
+                    $("#status").empty();
+                    $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status"));
                 });
             });
-        </script>
+            $(document).on("click", '.baja', function (evt) {
+                var id = $(this).val();
+                $.get("/Unidades/Status/" + $(this).val(), function (event) {
+                    $("#status").empty();
+                    $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status"));
+                });
+            });
+            $("#table").dataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 

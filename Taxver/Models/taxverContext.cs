@@ -269,14 +269,6 @@ namespace Taxver.Models
 
                 entity.Property(e => e.Descripcion).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.FechaFinal)
-                    .HasColumnName("Fecha_Final")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.FechaIncio)
-                    .HasColumnName("Fecha_Incio")
-                    .HasColumnType("date");
-
                 entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");

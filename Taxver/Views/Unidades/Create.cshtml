@@ -3,39 +3,75 @@
 @{
     ViewData["Title"] = "Agregar";
 }
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Agregar unidad</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">            
+        <div class="col-md-12">
+            <form asp-action="Create" autocomplete="off">
+                <div class="row">
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Unidades</h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Placa" class="control-label"></label>
-                <input asp-for="Placa" class="form-control" />
-                <span asp-validation-for="Placa" class="text-danger"></span>
+
+                    <div class="card col-md-6 col-sm-6">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group row">
+                                <label asp-for="Placa" class="control-label"></label>
+                                <input asp-for="Placa" autocomplete="false" class="required form-control" />
+                                <span asp-validation-for="Placa" class="text-danger"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="Modelo" class="control-label"></label>
+                                <input asp-for="Modelo" class="required form-control" />
+                                <span asp-validation-for="Modelo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label">Numero</label>
+                                <input asp-for="Numero" autocomplete="new-password" class="required form-control" />
+                                <span asp-validation-for="Numero" class="text-danger"></span>
+                            </div>
+                            <div class="form-group row float-right">
+                                <input type="submit" value="Agregar" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-6 col-sm-6">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">Seguro</label>
+                                <select asp-for="IdFechasSeguroNavigation.IdSeguro" class="form-control" asp-items="ViewBag.IdSeguro"></select>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha de Inicio</label>
+                                        <div class="input-group">
+                                            <input asp-for="IdFechasSeguroNavigation.FechaInicio" type="text" autocomplete="new-password" class="form-control" id="inicioF" placeholder="mm/dd/yyyy">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Fecha de Vencimiento</label>
+                                        <div class="input-group">
+                                            <input asp-for="IdFechasSeguroNavigation.FechaFinal" type="text" autocomplete="new-password" class="form-control" id="vencimientoF" placeholder="mm/dd/yyyy">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
-                <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
-            </div>           
-            <div class="form-group">
-                <label class="control-label">Seguro</label>
-                <select asp-for="IdSeguro" class ="form-control" asp-items="ViewBag.IdSeguro"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>

@@ -13,7 +13,13 @@ namespace Taxver.Controllers
         // GET: Unidades
         public ActionResult Ver()
         {
-            return View();
+            taxverContext tc = new taxverContext();
+            var list = tc.Vehiculo;
+            foreach (Vehiculo v in list){
+                v.IdFechasSeguroNavigation = tc.FechasSeguro.Where(f => f.IdFechasSeguro == v.IdFechasSeguro).First();
+                v.IdFechasSeguroNavigation.IdSeguroNavigation = tc.Seguro.Where(s => s.IdSeguro == v.IdFechasSeguroNavigation.IdSeguro).First();
+            }
+            return View(list);
         }
         public void Status(int v)
         {
@@ -57,6 +63,9 @@ namespace Taxver.Controllers
             try
             {
                 taxverContext tc = new taxverContext();
+                tc.FechasSeguro.Add(v.IdFechasSeguroNavigation);
+                tc.SaveChanges();
+                v.IdFechasSeguro = tc.FechasSeguro.Last().IdFechasSeguro;
                 v.Status = 1;
                 v.Descripcion = "";
                 tc.Vehiculo.Add(v);
@@ -100,8 +109,6 @@ namespace Taxver.Controllers
                     entity.Modelo = v.Modelo;
                     entity.Numero = v.Numero;
                     entity.Placa = v.Placa;
-                    entity.Status = v.Status;
-                    entity.IdSeguro = v.IdSeguro;
                     context.Vehiculo.Update(entity);
                     
                     context.SaveChanges();

@@ -12,8 +12,6 @@ namespace Taxver.Models
 
         public int IdSeguro { get; set; }
         public string Nombre { get; set; }
-        public DateTime? FechaIncio { get; set; }
-        public DateTime? FechaFinal { get; set; }
         public int? Status { get; set; }
         public string Descripcion { get; set; }
 

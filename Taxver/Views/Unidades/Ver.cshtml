@@ -4,62 +4,80 @@
     ViewData["Title"] = "Ver";
 }
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Ver unidades</h1>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ver unidades</h4>
+        </div>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<table id="table" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Placa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Numero)
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                Seguro
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in new taxverContext().Vehiculo) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Placa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Numero)
-            </td>
-            <td id="status">
-                @if (item.Status == 1)
-                {
-                <button value="@item.IdVehiculo" class="baja btn btn-success">Activo</button>
-                }
-                else
-                {
-                <button value="@item.IdVehiculo" class="alta btn btn-danger">Inactivo</button>
-                }
-            </td>
-            <td>
-                @Html.DisplayName( new taxverContext().Seguro.Where(s => s.IdSeguro == item.IdSeguro).First().Nombre )
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdVehiculo">Edit</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Placa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Modelo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Numero)
+                            </th>
+                            <th>
+                                Estado
+                            </th>
+                            <th>
+                                Seguro
+                            </th>
+                            <th>
+                                Editar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Placa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Modelo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Numero)
+                                </td>
+                                <td id="status">
+                                    @if (item.Status == 1)
+                                    {
+                                        <button value="@item.IdVehiculo" class="baja btn btn-success">Activo</button>
+                                    }
+                                    else
+                                    {
+                                        <button value="@item.IdVehiculo" class="alta btn btn-danger">Inactivo</button>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayName(item.IdFechasSeguroNavigation.IdSeguroNavigation.Nombre)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.IdVehiculo" class="btn btn-secondary"><i class="mdi mdi-account-edit"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                </div>
+</div>
+</div>
+</div>
