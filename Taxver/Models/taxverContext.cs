@@ -54,7 +54,7 @@ namespace Taxver.Models
                     .HasColumnName("idConductor")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Foto).HasColumnType("varchar(45)");
+                entity.Property(e => e.Foto).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.IdPersona)
                     .HasColumnName("idPersona")
@@ -63,6 +63,8 @@ namespace Taxver.Models
                 entity.Property(e => e.IdVehiculo)
                     .HasColumnName("idVehiculo")
                     .HasColumnType("int(11)");
+
+                entity.Property(e => e.Status).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.IdPersonaNavigation)
                     .WithMany(p => p.Conductor)
@@ -122,6 +124,9 @@ namespace Taxver.Models
                 entity.HasIndex(e => e.IdSeguro)
                     .HasName("fk_FS_Seguro_idx");
 
+                entity.HasIndex(e => e.IdVehiculo)
+                    .HasName("fk_FS_Vehiculo_idx");
+
                 entity.Property(e => e.IdFechasSeguro)
                     .HasColumnName("idFechas_Seguro")
                     .HasColumnType("int(11)");
@@ -138,10 +143,19 @@ namespace Taxver.Models
                     .HasColumnName("idSeguro")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.IdVehiculo)
+                    .HasColumnName("idVehiculo")
+                    .HasColumnType("int(11)");
+
                 entity.HasOne(d => d.IdSeguroNavigation)
                     .WithMany(p => p.FechasSeguro)
                     .HasForeignKey(d => d.IdSeguro)
                     .HasConstraintName("fk_FS_Seguro");
+
+                entity.HasOne(d => d.IdVehiculoNavigation)
+                    .WithMany(p => p.FechasSeguro)
+                    .HasForeignKey(d => d.IdVehiculo)
+                    .HasConstraintName("fk_FS_Vehiculo");
             });
 
             modelBuilder.Entity<Mantenimiento>(entity =>
@@ -208,12 +222,6 @@ namespace Taxver.Models
 
                 entity.ToTable("persona");
 
-                entity.HasIndex(e => e.IdUsuario)
-                    .HasName("fk_Persona_Usuarios_idx");
-
-                entity.HasIndex(e => e.IdVehiculo)
-                    .HasName("fk_Persona_Vehiculo_idx");
-
                 entity.Property(e => e.IdPersona)
                     .HasColumnName("idPersona")
                     .HasColumnType("int(11)");
@@ -230,31 +238,11 @@ namespace Taxver.Models
 
                 entity.Property(e => e.Email).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.IdUsuario)
-                    .HasColumnName("idUsuario")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.IdVehiculo)
-                    .HasColumnName("idVehiculo")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
 
-                entity.Property(e => e.Telefono).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdUsuarioNavigation)
-                    .WithMany(p => p.Persona)
-                    .HasForeignKey(d => d.IdUsuario)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Persona_Usuarios");
-
-                entity.HasOne(d => d.IdVehiculoNavigation)
-                    .WithMany(p => p.Persona)
-                    .HasForeignKey(d => d.IdVehiculo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Persona_Vehiculo");
+                entity.Property(e => e.Telefono).HasColumnType("varchar(25)");
             });
 
             modelBuilder.Entity<Seguro>(entity =>
@@ -299,6 +287,9 @@ namespace Taxver.Models
 
                 entity.ToTable("usuarios");
 
+                entity.HasIndex(e => e.IdPersona)
+                    .HasName("fk_Usuario_Person_idx");
+
                 entity.HasIndex(e => e.IdTipoUsuario)
                     .HasName("fk_Usuario_Tipo_idx");
 
@@ -307,6 +298,10 @@ namespace Taxver.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Descripcion).HasColumnType("varchar(45)");
+
+                entity.Property(e => e.IdPersona)
+                    .HasColumnName("idPersona")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.IdTipoUsuario)
                     .HasColumnName("idTipo_Usuario")
@@ -317,6 +312,11 @@ namespace Taxver.Models
                 entity.Property(e => e.Password).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdPersonaNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.IdPersona)
+                    .HasConstraintName("fk_Usuario_Person");
 
                 entity.HasOne(d => d.IdTipoUsuarioNavigation)
                     .WithMany(p => p.Usuarios)
@@ -330,18 +330,13 @@ namespace Taxver.Models
 
                 entity.ToTable("vehiculo");
 
-                entity.HasIndex(e => e.IdFechasSeguro)
-                    .HasName("fk_Vehiculo_Seguro_idx");
-
                 entity.Property(e => e.IdVehiculo)
                     .HasColumnName("idVehiculo")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Descripcion).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.IdFechasSeguro)
-                    .HasColumnName("idFechas_Seguro")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Marca).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Modelo).HasColumnType("varchar(45)");
 
@@ -350,11 +345,6 @@ namespace Taxver.Models
                 entity.Property(e => e.Placa).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdFechasSeguroNavigation)
-                    .WithMany(p => p.Vehiculo)
-                    .HasForeignKey(d => d.IdFechasSeguro)
-                    .HasConstraintName("fk_Vehiculo_Fechas_Seguro");
             });
 
             modelBuilder.Entity<Viaje>(entity =>

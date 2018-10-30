@@ -12,66 +12,79 @@
 </div>
 <div class="container-fluid">            
         <div class="col-md-12">
-            <form asp-action="Create" autocomplete="off">
-                <div class="row">
+                <form method="post" enctype="multipart/form-data" asp-controller="Unidades" asp-action="Create">
+                    <div class="row">
 
 
-                    <div class="card col-md-6 col-sm-6">
-                        <div class="card-body">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group row">
-                                <label asp-for="Placa" class="control-label"></label>
-                                <input asp-for="Placa" autocomplete="false" class="required form-control" />
-                                <span asp-validation-for="Placa" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row">
-                                <label asp-for="Modelo" class="control-label"></label>
-                                <input asp-for="Modelo" class="required form-control" />
-                                <span asp-validation-for="Modelo" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label">Numero</label>
-                                <input asp-for="Numero" autocomplete="new-password" class="required form-control" />
-                                <span asp-validation-for="Numero" class="text-danger"></span>
-                            </div>
-                            <div class="form-group row float-right">
-                                <input type="submit" value="Agregar" class="btn btn-default" />
+                        <div class="card col-md-6 col-sm-6">
+                            <div class="card-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group row">
+                                    <label asp-for="Placa" class="control-label"></label>
+                                    <input asp-for="Placa" autocomplete="false" class="required form-control" />
+                                    <span asp-validation-for="Placa" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Marca" class="control-label"></label>
+                                    <input asp-for="Marca" class="required form-control" />
+                                    <span asp-validation-for="Marca" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Modelo" class="control-label"></label>
+                                    <input asp-for="Modelo" class="required form-control" />
+                                    <span asp-validation-for="Modelo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="control-label">Numero</label>
+                                    <input asp-for="Numero" autocomplete="new-password" class="required form-control" />
+                                    <span asp-validation-for="Numero" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="custom-control custom-checkbox mr-sm-2">
+                                        <input type="checkbox" class="custom-control-input" id="seguro">
+                                        <label class="custom-control-label" for="seguro">¿Seguro?</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row float-right">
+                                    <input type="submit" value="Agregar" class="btn btn-default" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card col-md-6 col-sm-6">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label class="control-label">Seguro</label>
-                                <select asp-for="IdFechasSeguroNavigation.IdSeguro" class="form-control" asp-items="ViewBag.IdSeguro"></select>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Fecha de Inicio</label>
-                                        <div class="input-group">
-                                            <input asp-for="IdFechasSeguroNavigation.FechaInicio" type="text" autocomplete="new-password" class="form-control" id="inicioF" placeholder="mm/dd/yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        <div class="card col-md-6 col-sm-6">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="control-label">Seguro</label>
+                                    <select name="seguro" class="form-control" asp-items="ViewBag.IdSeguro" id="combo">
+                                        <option value="0">Sin seleccionar...</option>
+                                    </select>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha de Inicio</label>
+                                            <div class="input-group">
+                                                <input name="IF" type="text" autocomplete="destroy" class="form-control" id="IF" placeholder="mm/dd/yyyy">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha de Vencimiento</label>
+                                            <div class="input-group">
+                                                <input name="VF" type="text" autocomplete="destroy" class="form-control" id="VF" placeholder="mm/dd/yyyy">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Fecha de Vencimiento</label>
-                                        <div class="input-group">
-                                            <input asp-for="IdFechasSeguroNavigation.FechaFinal" type="text" autocomplete="new-password" class="form-control" id="vencimientoF" placeholder="mm/dd/yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-            </div>
+                </form>
+</div>
         </div>

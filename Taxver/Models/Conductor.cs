@@ -9,6 +9,7 @@ namespace Taxver.Models
         public int? IdVehiculo { get; set; }
         public int? IdPersona { get; set; }
         public string Foto { get; set; }
+        public int? Status { get; set; }
 
         public Persona IdPersonaNavigation { get; set; }
         public Vehiculo IdVehiculoNavigation { get; set; }

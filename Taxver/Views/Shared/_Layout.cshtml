@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
     <title>T A X V E R</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/assets/libs/flot/css/float-chart.css" rel="stylesheet">
@@ -47,6 +48,17 @@
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    <a class="navbar-brand" asp-controller="Principal" asp-action="Inicio">
+                        <div class="text-center">
+                        <b class="logo-icon p-l-10">
+                            <i class="mdi mdi-car-connected"></i>
+                        </b>     
+                        <span class="logo-text">
+                            <b>TAXVER</b>
+                        </span>
+                            </div>
+                       </a>
+
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
@@ -103,22 +115,22 @@
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a asp-controller="Principal" asp-action="Inicio" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Conductores </span></a>
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-car-connected"></i><span class="hide-menu">Unidades </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Create" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Agregar conductores </span></a></li>
-                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ver conductores </span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Create" class="sidebar-link"><i class="mdi mdi-plus"></i><span class="hide-menu"> Agregar unidades</span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-eye-outline"></i><span class="hide-menu"> Ver unidades </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Unidades </span></a>
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Conductores </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Create" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Agregar unidades</span></a></li>
-                                <li class="sidebar-item"><a asp-controller="Unidades" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Ver unidades </span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Create" class="sidebar-link"><i class="mdi mdi-account-plus"></i><span class="hide-menu"> Agregar conductores </span></a></li>
+                                <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-account-settings"></i><span class="hide-menu"> Ver conductores </span></a></li>
                             </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Viajes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Mantenimiento</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Objetos perdidos</span></a></li>
+                        </li>                        
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-map-marker-multiple"></i><span class="hide-menu">Viajes</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-wrench"></i><span class="hide-menu">Mantenimiento</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Objetos perdidos</span></a></li>
 
                     </ul>
                 </nav>
@@ -188,12 +200,30 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#inicioF').datepicker({
+            $('.custom-file-input').on('change', function () {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+            });
+            $("#combo").prop("disabled", true);
+            $("#IF").prop("disabled", true);
+            $("#VF").prop("disabled",true);
+            $("#seguro").change(function () {
+                if ($(this).prop("checked")) {
+                    $("#combo").prop("disabled", false);
+                    $("#IF").prop("disabled", false);
+                    $("#VF").prop("disabled", false);
+                } else {
+                    $("#combo").prop("disabled", true);
+                    $("#IF").prop("disabled", true);
+                    $("#VF").prop("disabled", true);
+                }
+            });
+            $('#IF').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 language: 'es'
             });
-            $('#vencimientoF').datepicker({
+            $('#VF').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 language: 'es'
@@ -201,16 +231,16 @@
 
             $(document).on("click", '.alta', function (evt) {
                 var id = $(this).val();
-                $.get("/Unidades/Status/" + $(this).val(), function (event) {
-                    $("#status").empty();
-                    $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status"));
+                $.get("/"+$("#controller").val()+"/Status", { id: $(this).val()}, function (event) {
+                    $("#status-"+id+"").empty();
+                    $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status-" + id + ""));
                 });
             });
             $(document).on("click", '.baja', function (evt) {
                 var id = $(this).val();
-                $.get("/Unidades/Status/" + $(this).val(), function (event) {
-                    $("#status").empty();
-                    $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status"));
+                $.get("/"+$("#controller").val()+"/Status", { id: $(this).val() }, function (event) {
+                    $("#status-" + id + "").empty();
+                    $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status-" + id + ""));
                 });
             });
             $("#table").dataTable({

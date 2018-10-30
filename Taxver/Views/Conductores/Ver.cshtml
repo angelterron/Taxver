@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Taxver.Models.Vehiculo>
+﻿@model IEnumerable<Taxver.Models.Conductor>
 
 @{
-    ViewData["Title"] = "Ver";
+    ViewData["Title"] = "Agregar";
 }
 
 <div class="page-breadcrumb">
@@ -15,7 +15,7 @@
     <!-- ============================================================== -->
     <!-- Start Page Content -->
     <!-- ============================================================== -->
-    <input id="controller" type="hidden" value="Unidades" />
+    <input id="controller" type="hidden" value="Conductores" />
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -26,22 +26,19 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Placa)
+                                @Html.DisplayNameFor(model => model.IdPersonaNavigation.Nombre)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Marca)
+                                Apellido paterno
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Modelo)
+                                Apellido materno
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Numero)
+                                Unidad asignada
                             </th>
                             <th>
-                                Estado
-                            </th>
-                            <th>
-                                Seguro
+                                @Html.DisplayNameFor(model => model.IdPersonaNavigation.Status)
                             </th>
                             <th>
                                 Editar
@@ -53,43 +50,44 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Placa)
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Marca)
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.ApellidoPaterno)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Modelo)
+                                    @Html.DisplayFor(modelItem => item.IdPersonaNavigation.ApellidoMaterno)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Numero)
+                                    @if (item.IdVehiculo == 1)
+                                    {
+                                        @Html.DisplayName("Sin unidad");
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => item.IdVehiculoNavigation.Marca)
+                                        @Html.DisplayName(" ")
+                                        @Html.DisplayFor(modelItem => item.IdVehiculoNavigation.Modelo)
+                                        @Html.DisplayName(" ")
+                                        @Html.DisplayFor(modelItem => item.IdVehiculoNavigation.Numero)
+                                    }
                                 </td>
-                                <td id="status-@Html.DisplayFor(modelItem => @item.IdVehiculo)">
+                                <td id="status-@Html.DisplayFor(modelItem => @item.IdConductor)">
                                     @if (item.Status == 1)
                                     {
-                                        <button value="@item.IdVehiculo" class="baja btn btn-success">Activo</button>
+                                        <button value="@item.IdConductor" class="baja btn btn-success">Activo</button>
                                     }
                                     else if (item.Status == 2)
                                     {
-                                        <button value="@item.IdVehiculo" class="alta btn btn-danger">Inactivo</button>
+                                        <button value="@item.IdConductor" class="alta btn btn-danger">Inactivo</button>
                                     }
                                     else
                                     {
-                                        <button value="@item.IdVehiculo" class="alta btn btn-warning" disabled>Ocupado</button>
+                                        <button value="@item.IdConductor" class="alta btn btn-warning" disabled>Ocupado</button>
                                     }
                                 </td>
                                 <td>
-                                    @if (item.FechasSeguro.First() == null)
-                                    {
-                                        @Html.DisplayName("Sin seguro");
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayName(item.FechasSeguro.First().IdSeguroNavigation.Nombre);
-                                    }
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdVehiculo" class="btn btn-secondary"><i class="mdi mdi-account-edit"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdConductor" class="btn btn-secondary"><i class="mdi mdi-account-edit"></i></a>
                                 </td>
                             </tr>
                         }
