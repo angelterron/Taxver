@@ -6,8 +6,11 @@ namespace Taxver.Models
 {
     public partial class taxverContext : DbContext
     {
-        public taxverContext()
+
+        private string connectionString;
+        public taxverContext(string _connectionString)
         {
+            this.connectionString = _connectionString;
         }
 
         public taxverContext(DbContextOptions<taxverContext> options)
@@ -31,8 +34,7 @@ namespace Taxver.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=taxver;User=root;Password=12345;");
+                optionsBuilder.UseMySql(connectionString);
             }
         }
 
