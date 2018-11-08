@@ -50,14 +50,14 @@
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" asp-controller="Principal" asp-action="Inicio">
                         <div class="text-center">
-                        <b class="logo-icon p-l-10">
-                            <i class="mdi mdi-car-connected"></i>
-                        </b>     
-                        <span class="logo-text">
-                            <b>TAXVER</b>
-                        </span>
-                            </div>
-                       </a>
+                            <b class="logo-icon p-l-10">
+                                <i class="mdi mdi-car-connected"></i>
+                            </b>
+                            <span class="logo-text">
+                                <b>TAXVER</b>
+                            </span>
+                        </div>
+                    </a>
 
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
@@ -127,10 +127,11 @@
                                 <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Create" class="sidebar-link"><i class="mdi mdi-account-plus"></i><span class="hide-menu"> Agregar conductores </span></a></li>
                                 <li class="sidebar-item"><a asp-controller="Conductores" asp-action="Ver" class="sidebar-link"><i class="mdi mdi-account-settings"></i><span class="hide-menu"> Ver conductores </span></a></li>
                             </ul>
-                        </li>                        
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-map-marker-multiple"></i><span class="hide-menu">Viajes</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-wrench"></i><span class="hide-menu">Mantenimiento</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Objetos perdidos</span></a></li>
+                        <li class="sidebar-item"><a asp-controller="Login" asp-action="Logout" class="sidebar-link"><i class="mdi mdi-account-settings"></i><span class="hide-menu"> Cerrar Sesion </span></a></li>
 
                     </ul>
                 </nav>
@@ -206,7 +207,7 @@
             });
             $("#combo").prop("disabled", true);
             $("#IF").prop("disabled", true);
-            $("#VF").prop("disabled",true);
+            $("#VF").prop("disabled", true);
             $("#seguro").change(function () {
                 if ($(this).prop("checked")) {
                     $("#combo").prop("disabled", false);
@@ -231,14 +232,14 @@
 
             $(document).on("click", '.alta', function (evt) {
                 var id = $(this).val();
-                $.get("/"+$("#controller").val()+"/Status", { id: $(this).val()}, function (event) {
-                    $("#status-"+id+"").empty();
+                $.get("/" + $("#controller").val() + "/Status", { id: $(this).val() }, function (event) {
+                    $("#status-" + id + "").empty();
                     $("<button value='" + id + "' class='baja btn btn-success'>Activo</button>").appendTo($("#status-" + id + ""));
                 });
             });
             $(document).on("click", '.baja', function (evt) {
                 var id = $(this).val();
-                $.get("/"+$("#controller").val()+"/Status", { id: $(this).val() }, function (event) {
+                $.get("/" + $("#controller").val() + "/Status", { id: $(this).val() }, function (event) {
                     $("#status-" + id + "").empty();
                     $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status-" + id + ""));
                 });

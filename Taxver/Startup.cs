@@ -32,10 +32,18 @@ namespace Taxver
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication("PKAT")
+                .AddCookie("PKAT", options => {
+                    options.ReturnUrlParameter = "returnURL";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    options.LoginPath = "/Login/Index";
+                    options.LogoutPath = "/Account/Logout";
+            });
 
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.Add(new ServiceDescriptor(typeof(taxverContext),
-               new taxverContext(Configuration.GetConnectionString("TaxverConnection"))));
+            services.Add(new ServiceDescriptor(typeof(Models.taxverContext),
+               new Models.taxverContext(Configuration.GetConnectionString("TaxverConnection"))));
 
         }
 
@@ -52,6 +60,7 @@ namespace Taxver
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -60,7 +69,7 @@ namespace Taxver
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Principal}/{action=Inicio}/{id?}");
+                    template: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

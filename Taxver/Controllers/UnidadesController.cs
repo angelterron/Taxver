@@ -13,7 +13,7 @@ namespace Taxver.Controllers
         // GET: Unidades
         public ActionResult Ver()
         {
-            taxverContext tc = new taxverContext();
+            var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             var list = tc.Vehiculo.Where(v => v.IdVehiculo != 1);
             foreach (Vehiculo v in list){
                 v.FechasSeguro.Add(tc.FechasSeguro.Where(f => f.IdVehiculo == v.IdVehiculo).FirstOrDefault()); 
@@ -24,9 +24,9 @@ namespace Taxver.Controllers
         }
         public void Status(int id)
         {
-            try { 
-            var context = new taxverContext();
-            var entity = context.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == id);
+            try {
+                var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+                var entity = context.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == id);
             if (entity != null)
             {
                     if (entity.Status == 1)
@@ -52,7 +52,7 @@ namespace Taxver.Controllers
         // GET: Unidades/Create
         public ActionResult Create()
         {
-            taxverContext tc = new taxverContext();            
+            var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             ViewBag.IdSeguro = tc.Seguro.Select(s => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Text = s.Nombre, Value = s.IdSeguro.ToString() });
             return View();
         }
@@ -63,7 +63,7 @@ namespace Taxver.Controllers
         {
             try
             {
-                taxverContext tc = new taxverContext();                                                
+                var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 v.Status = 1;
                 v.Descripcion = "";
                 tc.Vehiculo.Add(v);
@@ -89,8 +89,8 @@ namespace Taxver.Controllers
 
         // GET: Unidades/Edit/5
         public ActionResult Edit(int id)
-        {            
-            taxverContext tc = new taxverContext();            
+        {
+            var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             if (tc.Vehiculo.Where(s => s.IdVehiculo == id).First() is Vehiculo v)
             {
                 ViewBag.IdSeguro = tc.Seguro.Select(s => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Text = s.Nombre, Value = s.IdSeguro.ToString()});
@@ -111,7 +111,7 @@ namespace Taxver.Controllers
         {
             try
             {
-                var context = new taxverContext();
+                var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 var entity = context.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == v.IdVehiculo);
                 if (entity != null)
                 {
