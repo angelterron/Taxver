@@ -22,7 +22,7 @@ namespace Taxver.Controllers
         // GET: Conductores
         public ActionResult Ver()
         {
-            taxverContext tc = new taxverContext();
+            taxverContext tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             var list = tc.Conductor;
             foreach (Conductor c in list)
             {
@@ -35,7 +35,7 @@ namespace Taxver.Controllers
         {
             try
             {
-                var context = new taxverContext();
+                var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 var entity = context.Conductor.FirstOrDefault(co => co.IdConductor == id);
                 if (entity != null)
                 {
@@ -65,7 +65,7 @@ namespace Taxver.Controllers
         // GET: Conductores/Create
         public ActionResult Create()
         {
-            taxverContext tc = new taxverContext();            
+            taxverContext tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             ViewBag.IdVehiculo = tc.Vehiculo.Where(ve => ve.Status == 1 && ve.IdVehiculo != 1).Select(v => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Text = v.Marca +" "+v.Modelo+" "+v.Numero, Value = v.IdVehiculo.ToString() });            
             return View();
         }
@@ -78,7 +78,7 @@ namespace Taxver.Controllers
             try
             {
                 
-                var context = new taxverContext();
+                var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 var entity = context.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == c.IdVehiculo);
                 if (entity != null)
                 {
@@ -133,7 +133,7 @@ namespace Taxver.Controllers
         // GET: Conductores/Edit/5
         public ActionResult Edit(int id)
         {
-            taxverContext tc = new taxverContext();
+            taxverContext tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             if (tc.Conductor.Where(s => s.IdConductor == id).First() is Conductor c)
             {
                 ViewBag.IdVehiculo = tc.Vehiculo.Where(v => v.Status == 1 || c.IdVehiculo == v.IdVehiculo).Where(ve => ve.IdVehiculo != 1 ).Select(v => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem { Text = v.Marca +" " +v.Modelo +" "+v.Numero, Value = v.IdVehiculo.ToString() });                
@@ -152,7 +152,7 @@ namespace Taxver.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Conductor c, IFormFile file)
         {
-            var context = new taxverContext();
+            var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
             try
             {
                 // TODO: Add update logic here
