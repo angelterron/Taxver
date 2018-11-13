@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Taxver.Models
@@ -19,9 +20,11 @@ namespace Taxver.Models
         public int? Status { get; set; }
         public string Descripcion { get; set; }
         public string Marca { get; set; }
-
+        [JsonIgnore]
         public ICollection<Conductor> Conductor { get; set; }
+        [JsonIgnore]
         public ICollection<FechasSeguro> FechasSeguro { get; set; }
+        [JsonIgnore]
         public ICollection<Mantenimiento> Mantenimiento { get; set; }
     }
 }

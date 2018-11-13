@@ -33,7 +33,7 @@ namespace Taxver.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(RegisterModel e)
+        public IActionResult Create(RegisterModel e, DateTime fechaN)
         {
             if(e.Password == e.PasswordAgain)
             {
@@ -45,7 +45,7 @@ namespace Taxver.Controllers
 
                 person.ApellidoPaterno = apellidos[0];
                 person.ApellidoMaterno = apellidos[1];
-                person.Edad = e.Edad;
+                person.FechaNacimiento = fechaN;
                 person.Telefono = e.Telefono;
                 person.Email = e.Email;
                 person.Status = 1;
@@ -87,7 +87,7 @@ namespace Taxver.Controllers
             {
                 var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 string pass = getSHA1(model.Password);
-                Usuarios log = tc.Usuarios.Where(p => p.Nombre == model.Nombre && p.Password == pass).First();
+                Usuarios log = tc.Usuarios.Where(p => p.Nombre == model.Nombre && p.Password == pass).FirstOrDefault();
                 if (log != null)
                 {
                     var claims = new List<Claim>();
@@ -100,8 +100,7 @@ namespace Taxver.Controllers
                     return RedirectToAction("Inicio","Principal"); //Action,Controller
                 }
             }
-
-            return View();
+            return RedirectToAction("Index", "Login");
         }
 
 

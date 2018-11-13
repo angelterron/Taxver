@@ -41,6 +41,10 @@
                         <span asp-validation-for="IdPersonaNavigation.ApellidoPaterno" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="IdPersonaNavigation.FechaNacimiento" class="control-label">Fecha de nacimiento</label>
+                        <input asp-for="IdPersonaNavigation.FechaNacimiento" type="text" class="form-control form-control-lg" id="edad" placeholder="mm/dd/yyyy" aria-describedby="basic-addon1" aria-label="Edad" required>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="IdPersonaNavigation.ApellidoMaterno" class="control-label"></label>
                         <input asp-for="IdPersonaNavigation.ApellidoMaterno" class="form-control" />
                         <span asp-validation-for="IdPersonaNavigation.ApellidoMaterno" class="text-danger"></span>

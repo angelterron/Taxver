@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/logo.png">
     <title>T A X V E R</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/assets/libs/flot/css/float-chart.css" rel="stylesheet">
@@ -66,7 +66,8 @@
 
                     </div>
                     <!-- Form -->
-                    <form class="form-horizontal m-t-20" asp-controller="Login" asp-action="Create">
+                    <form class="form-horizontal m-t-20" method="post" enctype="multipart/form-data" asp-controller="Login" asp-action="Create">
+
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="row p-b-30">
                             <div class="col-12">
@@ -84,9 +85,9 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span asp-validation-for="Edad" class="input-group-text bg-success text-white" id="basic-addon2"><i class="ti-eye"></i></span>
+                                        <span class="input-group-text bg-success text-white" id="basic-addon2"><i class="ti-eye"></i></span>
                                     </div>
-                                    <input asp-for="Edad" name="IF" type="text" class="form-control form-control-lg" id="edad" placeholder="mm/dd/yyyy" aria-describedby="basic-addon1" aria-label="Edad" required>
+                                    <input name="fechaN" type="text" class="form-control form-control-lg" id="edad" placeholder="mm/dd/yyyy" aria-describedby="basic-addon1" aria-label="Edad" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -138,7 +139,7 @@
                 </div>
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="../../assets/images/logo.png" alt="logo" /></span>
+                        <span class="db"><img src="~/logo.png" alt="logo" /></span>
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" asp-controller="Login" asp-action="Log_in">
@@ -149,13 +150,13 @@
                                     <div class="input-group-prepend">
                                         <span asp-validation-for="Nombre" class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Correo" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Correo electrónico" aria-label="Correo" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span asp-validation-for="Password" class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Contraseña" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <label><a href="#" style="color:white" id="to-recover" name="action">¿Olvidaste tu contraseña?</a></label>
                             </div>
@@ -165,7 +166,7 @@
                                 <div class="form-group">
                                     <div class="p-t-20">
                                         <button class="btn btn-info" id="to-register" type="button"></i>Registrate</button>
-                                        <button class="btn btn-success float-right" type="submit">Login</button>
+                                        <button class="btn btn-success float-right" type="submit">Iniciar sesión</button>
                                     </div>
                                 </div>
                             </div>

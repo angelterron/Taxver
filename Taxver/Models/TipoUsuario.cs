@@ -12,7 +12,7 @@ namespace Taxver.Models
 
         public int IdTipoUsuario { get; set; }
         public string NombreTipo { get; set; }
-        public string Status { get; set; }
+        public int? Status { get; set; }
         public string Descripcion { get; set; }
 
         public ICollection<Usuarios> Usuarios { get; set; }

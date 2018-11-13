@@ -6,11 +6,10 @@ namespace Taxver.Models
 {
     public partial class taxverContext : DbContext
     {
-
-        private string connectionString;
-        public taxverContext(string _connectionString)
+        public string connectionString;
+        public taxverContext(String _ConectionString)
         {
-            this.connectionString = _connectionString;
+            this.connectionString = _ConectionString;
         }
 
         public taxverContext(DbContextOptions<taxverContext> options)
@@ -236,9 +235,11 @@ namespace Taxver.Models
                     .HasColumnName("Apellido_Paterno")
                     .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Edad).HasColumnType("varchar(45)");
-
                 entity.Property(e => e.Email).HasColumnType("varchar(45)");
+
+                entity.Property(e => e.FechaNacimiento)
+                    .HasColumnName("Fecha_Nacimiento")
+                    .HasColumnType("date");
 
                 entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
 
@@ -280,7 +281,7 @@ namespace Taxver.Models
                     .HasColumnName("Nombre_Tipo")
                     .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Status).HasColumnType("varchar(45)");
+                entity.Property(e => e.Status).HasColumnType("int(11)");
             });
 
             modelBuilder.Entity<Usuarios>(entity =>

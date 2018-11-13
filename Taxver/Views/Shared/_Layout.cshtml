@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/logo.png">
     <title>T A X V E R</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/assets/libs/flot/css/float-chart.css" rel="stylesheet">
@@ -51,7 +51,7 @@
                     <a class="navbar-brand" asp-controller="Principal" asp-action="Inicio">
                         <div class="text-center">
                             <b class="logo-icon p-l-10">
-                                <i class="mdi mdi-car-connected"></i>
+                                <img src="~/logo.png"  height="30%" width="30%"/>
                             </b>
                             <span class="logo-text">
                                 <b>TAXVER</b>
@@ -225,6 +225,11 @@
                 language: 'es'
             });
             $('#VF').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                language: 'es'
+            });
+            $('#edad').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 language: 'es'

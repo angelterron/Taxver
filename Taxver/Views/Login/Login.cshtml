@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/logo.png">
     <title>Matrix Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <link href="../../dist/css/style.min.css" rel="stylesheet">
@@ -57,13 +57,13 @@
                                     <div class="input-group-prepend">
                                         <span asp-validation-for="Nombre" class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
                                     </div>
-                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Correo" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Usuario" aria-label="Correo" aria-describedby="basic-addon1" required="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span asp-validation-for="Password" class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input asp-for="Password" type="text" class="form-control form-control-lg" placeholder="Password" aria-label="Contraseña" aria-describedby="basic-addon1" required="">
+                                    <input asp-for="Password" type="text" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" required>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     <div class="p-t-20">
                                         <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lost password?</button>
-                                        <button class="btn btn-success float-right" type="submit">Login</button>
+                                        <button class="btn btn-success float-right" type="submit">Iniciar sesión</button>
                                     </div>
                                 </div>
                             </div>

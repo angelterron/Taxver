@@ -74,7 +74,7 @@ namespace Taxver.Controllers
         // POST: Conductores/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Conductor c,IFormFile file)
+        public async Task<ActionResult> Create(Conductor c,DateTime fechaN,IFormFile file)
         {
             try
             {
@@ -84,9 +84,9 @@ namespace Taxver.Controllers
                 if (entity != null)
                 {
                     entity.Status = 3;
-                    context.Vehiculo.Update(entity);
-                    context.SaveChanges();
+                    context.Vehiculo.Update(entity);                   
                 }
+                c.IdPersonaNavigation.FechaNacimiento = fechaN;
                 c.IdPersonaNavigation.Status = 1;
                 context.Persona.Add(c.IdPersonaNavigation);
                 try
@@ -179,7 +179,7 @@ namespace Taxver.Controllers
                     entityPersona.Nombre = c.IdPersonaNavigation.Nombre;
                     entityPersona.ApellidoPaterno = c.IdPersonaNavigation.ApellidoPaterno;
                     entityPersona.ApellidoMaterno = c.IdPersonaNavigation.ApellidoMaterno;
-                    entityPersona.Edad = c.IdPersonaNavigation.Edad;
+                    entityPersona.FechaNacimiento = c.IdPersonaNavigation.FechaNacimiento;
                     entityPersona.Email = c.IdPersonaNavigation.Email;
                     entityPersona.Telefono = c.IdPersonaNavigation.Telefono;
                     context.Persona.Update(entityPersona);
