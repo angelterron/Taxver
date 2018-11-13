@@ -17,10 +17,16 @@ namespace Taxver.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(string ReturnURL)
         {
-            if(User.Identity.IsAuthenticated == false)
+            if (User.Identity.IsAuthenticated == false)
+            {
+                if (ReturnURL != null)
+                    ViewData.Add("ReturnURL", ReturnURL);
+                else
+                    ViewData.Add("ReturnURL", "");
                 return View();
+            }
             else
                 return RedirectToAction("Inicio", "Principal"); //Action,Controller
 
@@ -86,7 +92,7 @@ namespace Taxver.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Log_in(Usuarios model)
+        public async Task<IActionResult> Log_in(LoginModel model)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +108,10 @@ namespace Taxver.Controllers
                     var principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync("PKAT", principal);
 
-                    return RedirectToAction("Inicio","Principal"); //Action,Controller
+                    if (model.returnURL == "")
+                        return Redirect(model.returnURL);
+                    else
+                        RedirectToAction("Inicio", "Principal");
                 }
             }
             return RedirectToAction("Index", "Login");

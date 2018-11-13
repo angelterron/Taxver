@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    string ru = ViewData["ReturnURL"] as string;
 }
 
 <!DOCTYPE html>
@@ -158,6 +159,7 @@
                                     </div>
                                     <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" required="">
                                 </div>
+                                @Html.HiddenFor(m => m.returnURL, new { Value = ru });
                                 <label><a href="#" style="color:white" id="to-recover" name="action">¿Olvidaste tu contraseña?</a></label>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Taxver.Models;
@@ -10,7 +11,7 @@ namespace Taxver.Controllers
 {
     public class UnidadesController : Controller
     {
-        // GET: Unidades
+        [Authorize]
         public ActionResult Ver()
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -22,6 +23,7 @@ namespace Taxver.Controllers
             }
             return View(list);
         }
+        [Authorize]
         public void Status(int id)
         {
             try {
@@ -44,12 +46,14 @@ namespace Taxver.Controllers
             }
         }
         // GET: Unidades/Details/5
+        [Authorize]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Unidades/Create
+        [Authorize]
         public ActionResult Create()
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -59,6 +63,7 @@ namespace Taxver.Controllers
 
         // POST: Unidades/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Vehiculo v,int seguro, DateTime IF, DateTime VF)
         {
             try
@@ -88,6 +93,7 @@ namespace Taxver.Controllers
         }
 
         // GET: Unidades/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -105,6 +111,7 @@ namespace Taxver.Controllers
         }
 
         // POST: Unidades/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Vehiculo v)
@@ -133,12 +140,14 @@ namespace Taxver.Controllers
         }
 
         // GET: Unidades/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Unidades/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
