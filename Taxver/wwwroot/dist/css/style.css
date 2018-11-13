@@ -13196,13 +13196,16 @@ Earnings
       position: absolute; }
   .auth-wrapper #recoverform {
     display: none; }
-  .auth-wrapper .auth-sidebar {
+
+
+.auth-wrapper .auth-sidebar {
     position: fixed;
     height: 100%;
     right: 0px;
     overflow: auto;
     margin: 0px;
-    top: 0px; }
+    top: 0px;
+}
 
 @media (max-width: 767px) {
   .auth-wrapper .auth-sidebar {

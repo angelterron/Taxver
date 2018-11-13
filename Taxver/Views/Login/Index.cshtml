@@ -1,0 +1,258 @@
+﻿@model RegisterModel;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <title>T A X V E R</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="~/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/dist/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link href="~/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+            <div class="bg-dark border-top border-secondary">
+                <div id="registerForm" style="display:none;">
+                    <div class="text-center p-t-20 p-b-20">
+                        <b class="logo-icon p-l-10">
+                            <i class="mdi mdi-car-connected"></i>
+                        </b>
+                        <span class="logo-text">
+                            <b>TAXVER</b>
+                        </span>
+
+                    </div>
+                    <!-- Form -->
+                    <form class="form-horizontal m-t-20" asp-controller="Login" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row p-b-30">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Nombre" class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Apellidos" class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input asp-for="Apellidos" type="text" class="form-control form-control-lg" placeholder="Apellidos" aria-label="Username" aria-describedby="basic-addon1" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Edad" class="input-group-text bg-success text-white" id="basic-addon2"><i class="ti-eye"></i></span>
+                                    </div>
+                                    <input asp-for="Edad" name="IF" type="text" class="form-control form-control-lg" id="edad" placeholder="mm/dd/yyyy" aria-describedby="basic-addon1" aria-label="Edad" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Telefono" class="input-group-text bg-success text-white" id="basic-addon2"><i class="ti-mobile"></i></span>
+                                    </div>
+                                    <input asp-for="Telefono" type="text" class="form-control form-control-lg" placeholder="Telefono" aria-label="Telefono" aria-describedby="basic-addon1" required>
+                                </div>
+                                <!-- email -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Email" class="input-group-text bg-danger text-white" id="basic-addon3"><i class="ti-email"></i></span>
+                                    </div>
+                                    <input asp-for="Email" type="text" class="form-control form-control-lg" placeholder="Correo" aria-label="Username" aria-describedby="basic-addon1" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Password" class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="PasswordAgain" class="input-group-text bg-info text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input asp-for="PasswordAgain" type="password" class="form-control form-control-lg" placeholder="Repite Contraseña" aria-label="Password" aria-describedby="basic-addon1" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border-top border-secondary">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="p-t-20">
+                                        <button class="btn btn-block btn-lg btn-info" type="submit">Registrate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border-top border-secondary">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label style="color:white">¿Ya tienes cuenta?</label><br />
+                                    <div class="p-t-20">
+                                        <button class="btn btn-block btn-lg btn-info" id="to-Log_in" type="button">Inicia Sesion</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="loginform">
+                    <div class="text-center p-t-20 p-b-20">
+                        <span class="db"><img src="../../assets/images/logo.png" alt="logo" /></span>
+                    </div>
+                    <!-- Form -->
+                    <form class="form-horizontal m-t-20" id="loginform" asp-controller="Login" asp-action="Log_in">
+                        <div class="row p-b-30">
+                            <div class="col-12">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Nombre" class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input asp-for="Nombre" type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Correo" aria-describedby="basic-addon1" required="">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span asp-validation-for="Password" class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Contraseña" aria-describedby="basic-addon1" required="">
+                                </div>
+                                <label><a href="#" style="color:white" id="to-recover" name="action">¿Olvidaste tu contraseña?</a></label>
+                            </div>
+                        </div>
+                        <div class="row border-top border-secondary">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="p-t-20">
+                                        <button class="btn btn-info" id="to-register" type="button"></i>Registrate</button>
+                                        <button class="btn btn-success float-right" type="submit">Login</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div id="recoverform">
+                    <div class="text-center">
+                        <span class="text-white">Enter your e-mail address below and we will send you instructions how to recover a password.</span>
+                    </div>
+                    <div class="row m-t-20">
+                        <!-- Form -->
+                        <form class="col-12" action="index.html">
+                            <!-- email -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <!-- pwd -->
+                            <div class="row m-t-20 p-t-20 border-top border-secondary">
+                                <div class="col-12">
+                                    <a class="btn btn-success" href="#" id="to-login" name="action">Back To Login</a>
+                                    <button class="btn btn-info float-right" type="button" name="action">Recover</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <script>
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".preloader").fadeOut();
+
+        $('#to-Log_in').click(function () {
+            $("#registerForm").hide();
+            $("#loginform").fadeIn();
+        });
+        $('#to-register').on("click", function () {
+            $("#loginform").slideUp();
+            $("#registerForm").fadeIn();
+        });
+        $('#to-recover').on("click", function () {
+            $("#loginform").slideUp();
+            $("#recoverform").fadeIn();
+        });
+        $('#to-login').click(function () {
+
+            $("#recoverform").hide();
+            $("#loginform").fadeIn();
+        });
+        $('#edad').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
+        });
+    </script>
+</body>
+
+</html>
