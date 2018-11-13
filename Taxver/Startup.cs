@@ -40,7 +40,7 @@ namespace Taxver
                 .AddCookie("PKAT", options => {
                     options.ReturnUrlParameter = "returnURL";
                     options.ExpireTimeSpan = TimeSpan.FromDays(1);
-                    options.LoginPath = "/Login/Index";
+                    options.LoginPath = "/Principal/Inicio";
                     options.LogoutPath = "/Account/Logout";
             });
 

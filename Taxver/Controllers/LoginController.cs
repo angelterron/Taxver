@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+
 using Taxver.Models;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,7 +19,11 @@ namespace Taxver.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View();
+            if(User.Identity.IsAuthenticated == false)
+                return View();
+            else
+                return RedirectToAction("Inicio", "Principal"); //Action,Controller
+
         }
 
         public ActionResult Login()
