@@ -11,6 +11,8 @@ using System.Security.Claims;
 using Taxver.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net;
+using System.Net.Http;
 
 namespace Taxver.Controllers
 {
@@ -19,7 +21,7 @@ namespace Taxver.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            if(User.Identity.IsAuthenticated == false)
+            if (User.Identity.IsAuthenticated == false)
                 return View();
             else
                 return RedirectToAction("Inicio", "Principal"); //Action,Controller
@@ -40,13 +42,13 @@ namespace Taxver.Controllers
         [HttpPost]
         public IActionResult Create(RegisterModel e, DateTime fechaN)
         {
-            if(e.Password == e.PasswordAgain)
+            if (e.Password == e.PasswordAgain)
             {
                 var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 Persona person = new Persona();
                 person.Nombre = e.Nombre;
 
-                string [] apellidos = e.Apellidos.Split(" ");
+                string[] apellidos = e.Apellidos.Split(" ");
 
                 person.ApellidoPaterno = apellidos[0];
                 person.ApellidoMaterno = apellidos[1];
@@ -69,6 +71,29 @@ namespace Taxver.Controllers
             }
 
             return RedirectToAction("Index", "Login");
+        }
+        [HttpPost]
+        public ActionResult CreateConductor([FromBody]Usuarios e)
+        {
+            var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+            try
+            {
+                Usuarios user = new Usuarios();
+                user.Nombre = e.Nombre;
+                user.Password = getSHA1(e.Password);
+                user.IdPersona = e.IdPersona;
+                user.IdTipoUsuario = 2;
+                user.Status = 1;
+                context.Usuarios.Add(user);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+
         }
 
         private string getSHA1(string password)
@@ -102,7 +127,7 @@ namespace Taxver.Controllers
                     var principal = new ClaimsPrincipal(userIdentity);
                     await HttpContext.SignInAsync("PKAT", principal);
 
-                    return RedirectToAction("Inicio","Principal"); //Action,Controller
+                    return RedirectToAction("Inicio", "Principal"); //Action,Controller
                 }
             }
             return RedirectToAction("Index", "Login");
@@ -114,7 +139,7 @@ namespace Taxver.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("PKAT");
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
