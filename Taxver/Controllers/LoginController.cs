@@ -76,7 +76,27 @@ namespace Taxver.Controllers
 
             return RedirectToAction("Index", "Login");
         }
-
+        [HttpPost]
+        public ActionResult CreateConductor([FromBody]Usuarios e)
+        {
+            var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+            try
+            {
+                Usuarios user = new Usuarios();
+                user.Nombre = e.Nombre;
+                user.Password = getSHA1(e.Password);
+                user.IdPersona = e.IdPersona;
+                user.IdTipoUsuario = 2;
+                user.Status = 1;
+                context.Usuarios.Add(user);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
         private string getSHA1(string password)
         {
             SHA1 sha1 = SHA1Managed.Create();
