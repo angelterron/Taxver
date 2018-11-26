@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,9 @@ namespace Taxver.Controllers
             _env = env;
 
         }
-        // GET: Conductores
+
+
+        [Authorize]
         public ActionResult Ver()
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -32,6 +35,8 @@ namespace Taxver.Controllers
             }
             return View(list);
         }
+
+        [Authorize]
         public void Status(int id)
         {
             try
@@ -57,13 +62,14 @@ namespace Taxver.Controllers
             }
         }
 
-        // GET: Conductores/Details/5
+        [Authorize]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Conductores/Create
+
+        [Authorize]
         public ActionResult Create()
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -71,7 +77,7 @@ namespace Taxver.Controllers
             return View();
         }
 
-        // POST: Conductores/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Conductor c,DateTime fechaN,IFormFile file)
@@ -132,6 +138,7 @@ namespace Taxver.Controllers
         }
 
         // GET: Conductores/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
@@ -148,7 +155,7 @@ namespace Taxver.Controllers
             }
         }
 
-        // POST: Conductores/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Conductor c, IFormFile file)
@@ -205,12 +212,14 @@ namespace Taxver.Controllers
         }
 
         // GET: Conductores/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Conductores/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
