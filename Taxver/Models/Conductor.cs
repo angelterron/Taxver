@@ -9,6 +9,7 @@ namespace Taxver.Models
         public Conductor()
         {
             Posicionconductor = new HashSet<Posicionconductor>();
+            Viaje = new HashSet<Viaje>();
         }
 
         public int IdConductor { get; set; }
@@ -21,5 +22,7 @@ namespace Taxver.Models
         public Vehiculo IdVehiculoNavigation { get; set; }
         [JsonIgnore]
         public ICollection<Posicionconductor> Posicionconductor { get; set; }
+        [JsonIgnore]
+        public ICollection<Viaje> Viaje { get; set; }
     }
 }

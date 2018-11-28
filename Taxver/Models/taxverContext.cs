@@ -11,6 +11,7 @@ namespace Taxver.Models
         {
             this.connectionString = _connectionString;
         }
+
         public taxverContext(DbContextOptions<taxverContext> options)
             : base(options)
         {
@@ -388,7 +389,10 @@ namespace Taxver.Models
                 entity.ToTable("viaje");
 
                 entity.HasIndex(e => e.IdConductor)
-                    .HasName("fk_Viaje_Usuarios_idx");
+                    .HasName("fk_Viaje_Conductor_idx");
+
+                entity.HasIndex(e => e.IdPersona)
+                    .HasName("fk_Viaje_Persona_idx");
 
                 entity.Property(e => e.IdViaje)
                     .HasColumnName("idViaje")
@@ -402,12 +406,23 @@ namespace Taxver.Models
                     .HasColumnName("idConductor")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.IdPersona)
+                    .HasColumnName("idPersona")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.Status).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.IdConductorNavigation)
                     .WithMany(p => p.Viaje)
                     .HasForeignKey(d => d.IdConductor)
-                    .HasConstraintName("fk_Viaje_Usuarios");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Viaje_Conductor");
+
+                entity.HasOne(d => d.IdPersonaNavigation)
+                    .WithMany(p => p.Viaje)
+                    .HasForeignKey(d => d.IdPersona)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Viaje_Persona");
             });
 
             modelBuilder.Entity<Viajeposicion>(entity =>

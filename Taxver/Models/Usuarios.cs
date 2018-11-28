@@ -9,7 +9,6 @@ namespace Taxver.Models
         public Usuarios()
         {
             Evaluacion = new HashSet<Evaluacion>();
-            Viaje = new HashSet<Viaje>();
         }
 
         public int IdUsuarios { get; set; }
@@ -24,7 +23,5 @@ namespace Taxver.Models
         public TipoUsuario IdTipoUsuarioNavigation { get; set; }
         [JsonIgnore]
         public ICollection<Evaluacion> Evaluacion { get; set; }
-        [JsonIgnore]
-        public ICollection<Viaje> Viaje { get; set; }
     }
 }

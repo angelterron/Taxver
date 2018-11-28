@@ -11,6 +11,7 @@ namespace Taxver.Models
         {
             Conductor = new HashSet<Conductor>();
             Usuarios = new HashSet<Usuarios>();
+            Viaje = new HashSet<Viaje>();
         }
 
         public int IdPersona { get; set; }
@@ -26,5 +27,7 @@ namespace Taxver.Models
         public ICollection<Conductor> Conductor { get; set; }
         [JsonIgnore]
         public ICollection<Usuarios> Usuarios { get; set; }
+        [JsonIgnore]
+        public ICollection<Viaje> Viaje { get; set; }
     }
 }

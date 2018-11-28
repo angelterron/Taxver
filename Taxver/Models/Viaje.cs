@@ -13,14 +13,16 @@ namespace Taxver.Models
         }
 
         public int IdViaje { get; set; }
-        public int? IdConductor { get; set; }
+        public int IdConductor { get; set; }
         public float? Kilometros { get; set; }
         public float? Tarifa { get; set; }
         public int? Status { get; set; }
         public string Descripcion { get; set; }
         public DateTime? Fecha { get; set; }
+        public int IdPersona { get; set; }
 
-        public Usuarios IdConductorNavigation { get; set; }
+        public Conductor IdConductorNavigation { get; set; }
+        public Persona IdPersonaNavigation { get; set; }
         public Evaluacion Evaluacion { get; set; }
         [JsonIgnore]
         public ICollection<ObjetosPerdidos> ObjetosPerdidos { get; set; }
