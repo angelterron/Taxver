@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Taxver.Models
@@ -14,7 +15,7 @@ namespace Taxver.Models
         public string NombreTipo { get; set; }
         public int? Status { get; set; }
         public string Descripcion { get; set; }
-
+        [JsonIgnore]
         public ICollection<Usuarios> Usuarios { get; set; }
     }
 }

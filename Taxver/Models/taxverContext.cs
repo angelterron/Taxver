@@ -6,10 +6,8 @@ namespace Taxver.Models
 {
     public partial class taxverContext : DbContext
     {
-        public string connectionString;
-        public taxverContext(String _ConectionString)
+        public taxverContext()
         {
-            this.connectionString = _ConectionString;
         }
 
         public taxverContext(DbContextOptions<taxverContext> options)
@@ -23,17 +21,20 @@ namespace Taxver.Models
         public virtual DbSet<Mantenimiento> Mantenimiento { get; set; }
         public virtual DbSet<ObjetosPerdidos> ObjetosPerdidos { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Posicionconductor> Posicionconductor { get; set; }
         public virtual DbSet<Seguro> Seguro { get; set; }
         public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vehiculo> Vehiculo { get; set; }
         public virtual DbSet<Viaje> Viaje { get; set; }
+        public virtual DbSet<Viajeposicion> Viajeposicion { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql(connectionString);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySql("Server=localhost;Database=taxver;User=root;Password=12345;");
             }
         }
 
@@ -248,6 +249,36 @@ namespace Taxver.Models
                 entity.Property(e => e.Telefono).HasColumnType("varchar(25)");
             });
 
+            modelBuilder.Entity<Posicionconductor>(entity =>
+            {
+                entity.HasKey(e => e.IdPosicionConductor);
+
+                entity.ToTable("posicionconductor");
+
+                entity.HasIndex(e => e.IdConductor)
+                    .HasName("fk_Conductor_Posicion_idx");
+
+                entity.Property(e => e.IdPosicionConductor)
+                    .HasColumnName("idPosicionConductor")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdConductor)
+                    .HasColumnName("idConductor")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Lat).HasColumnType("int(11)");
+
+                entity.Property(e => e.Lng).HasColumnType("int(11)");
+
+                entity.Property(e => e.Status).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdConductorNavigation)
+                    .WithMany(p => p.Posicionconductor)
+                    .HasForeignKey(d => d.IdConductor)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_Conductor_Posicion");
+            });
+
             modelBuilder.Entity<Seguro>(entity =>
             {
                 entity.HasKey(e => e.IdSeguro);
@@ -377,6 +408,34 @@ namespace Taxver.Models
                     .WithMany(p => p.Viaje)
                     .HasForeignKey(d => d.IdConductor)
                     .HasConstraintName("fk_Viaje_Usuarios");
+            });
+
+            modelBuilder.Entity<Viajeposicion>(entity =>
+            {
+                entity.HasKey(e => e.IdViajePosicion);
+
+                entity.ToTable("viajeposicion");
+
+                entity.HasIndex(e => e.IdViaje)
+                    .HasName("fk_viaje_posicionviaje_idx");
+
+                entity.Property(e => e.IdViajePosicion)
+                    .HasColumnName("idViajePosicion")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdViaje)
+                    .HasColumnName("idViaje")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Lat).HasColumnType("int(11)");
+
+                entity.Property(e => e.Lng).HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdViajeNavigation)
+                    .WithMany(p => p.Viajeposicion)
+                    .HasForeignKey(d => d.IdViaje)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_viaje_posicionviaje");
             });
         }
     }
