@@ -43,17 +43,21 @@ namespace Taxver.Controllers
             {
                 var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
                 var entity = context.Conductor.FirstOrDefault(co => co.IdConductor == id);
+                var entity2 = context.Posicionconductor.FirstOrDefault(pos => pos.IdConductor == id);
                 if (entity != null)
                 {
                     if (entity.Status == 1)
                     {
+                        entity2.Status = 2;
                         entity.Status = 2;
                     }
                     else
                     {
+                        entity2.Status = 1;
                         entity.Status = 1;
                     }
                     context.Conductor.Update(entity);
+                    context.Posicionconductor.Update(entity2);
                     context.SaveChanges();
                 }
             }
@@ -85,20 +89,21 @@ namespace Taxver.Controllers
             try
             {
 
-                var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
-                var entity = context.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == c.IdVehiculo);
+                var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+                var entity = tc.Vehiculo.FirstOrDefault(ve => ve.IdVehiculo == c.IdVehiculo);
                 if (entity != null)
                 {
                     entity.Status = 3;
-                    context.Vehiculo.Update(entity);                   
+                    tc.Vehiculo.Update(entity);
+                    tc.SaveChanges();
                 }
                 c.IdPersonaNavigation.FechaNacimiento = fechaN;
                 c.IdPersonaNavigation.Status = 1;
-                context.Persona.Add(c.IdPersonaNavigation);
+                tc.Persona.Add(c.IdPersonaNavigation);
+                tc.SaveChanges();
                 try
                 {
-                    context.SaveChanges();
-                    c.IdPersonaNavigation.IdPersona = context.Persona.Last().IdPersona;
+                    c.IdPersonaNavigation.IdPersona = tc.Persona.Last().IdPersona;
                     var path = _env.WebRootPath;
                     var filePath = System.IO.Path.Combine(path, "Fotos");
                     if (!System.IO.Directory.Exists(filePath))
@@ -118,10 +123,17 @@ namespace Taxver.Controllers
                 {
                     return Content("" + e);
                 }                
-                c.IdPersona = context.Persona.Last().IdPersona;
+                c.IdPersona = tc.Persona.Last().IdPersona;
                 c.Status = 1;
-                context.Conductor.Add(c);
-                context.SaveChanges();
+                tc.Conductor.Add(c);
+                tc.SaveChanges();
+                Posicionconductor pos = new Posicionconductor();
+                pos.Lat = "0";
+                pos.Lng = "0";
+                pos.Status = 2;
+                pos.IdConductor = tc.Conductor.LastOrDefault().IdConductor;
+                tc.Posicionconductor.Add(pos);
+                tc.SaveChanges();
                 try
                 {                    
                 }
@@ -190,11 +202,20 @@ namespace Taxver.Controllers
                     entityPersona.Email = c.IdPersonaNavigation.Email;
                     entityPersona.Telefono = c.IdPersonaNavigation.Telefono;
                     context.Persona.Update(entityPersona);
-                    if (c.IdVehiculo != 0)
+                    if (c.IdVehiculo != 1)
                     {
                         var vehiculoN = context.Vehiculo.FirstOrDefault(v => v.IdVehiculo == c.IdVehiculo);
                         vehiculoN.Status = 3;
                         context.Vehiculo.Update(vehiculoN);
+                        var PosicionConductor = context.Posicionconductor.FirstOrDefault(pos => pos.IdConductor == c.IdConductor);
+                        PosicionConductor.Status = 1;
+                        context.Posicionconductor.Update(PosicionConductor);
+                    }
+                    else
+                    {
+                        var PosicionConductor = context.Posicionconductor.FirstOrDefault(pos => pos.IdConductor == c.IdConductor);
+                        PosicionConductor.Status = 2;
+                        context.Posicionconductor.Update(PosicionConductor);
                     }
                     var vehiculoO = context.Vehiculo.FirstOrDefault(v => v.IdVehiculo == entityConductor.IdVehiculo);
                     vehiculoO.Status = 1;

@@ -20,7 +20,6 @@ namespace Taxver.Models
         public int? Status { get; set; }
         public string Descripcion { get; set; }
         public string Marca { get; set; }
-
         [JsonIgnore]
         public ICollection<Conductor> Conductor { get; set; }
         [JsonIgnore]

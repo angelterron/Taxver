@@ -49,20 +49,17 @@
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
                     <a class="navbar-brand" asp-controller="Principal" asp-action="Inicio">
-                        <div class="text-center">
+                        <span class="logo-text">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>TAXVER</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
                             <b class="logo-icon p-l-10">
                                 <img src="~/logo.png"  height="30%" width="30%"/>
-                            </b>
-                            <span class="logo-text">
-                                <b>TAXVER</b>
-                            </span>
-                        </div>
+                            </b>                            
                     </a>
 
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
+                    <!-- ============================================================== -->                    
                 </div>
 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
@@ -113,7 +110,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a asp-controller="Principal" asp-action="Inicio" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
+                        <li class="sidebar-item"> <a asp-controller="Principal" asp-action="Inicio" class="sidebar-link waves-effect waves-dark sidebar-link"  aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Inicio</span></a></li>
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-car-connected"></i><span class="hide-menu">Unidades </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">

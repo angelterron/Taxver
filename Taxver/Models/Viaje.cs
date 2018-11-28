@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Taxver.Models
 {
@@ -19,7 +18,6 @@ namespace Taxver.Models
         public float? Tarifa { get; set; }
         public int? Status { get; set; }
         public string Descripcion { get; set; }
-        [DataType(DataType.Date)]
         public DateTime? Fecha { get; set; }
 
         public Usuarios IdConductorNavigation { get; set; }

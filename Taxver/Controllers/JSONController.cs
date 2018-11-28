@@ -16,17 +16,19 @@ namespace Taxver.Controllers
         public String Conductores()
         {
             var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
-            var Conductores = context.Conductor.Where(co => co.IdVehiculo != 1).ToArray();
+            var Posiciones = context.Posicionconductor.Where(pos => pos.Status == 1).ToArray();
 
-            foreach (Conductor c in Conductores)
+            foreach (Posicionconductor p in Posiciones)
             {
-                c.IdPersonaNavigation = context.Persona.Where(pe => pe.IdPersona == c.IdPersona).First();
-                c.IdVehiculoNavigation = context.Vehiculo.Where(ve => ve.IdVehiculo == c.IdVehiculo).First();
+                p.IdConductorNavigation = context.Conductor.Where(co => co.IdConductor == p.IdConductor).First();
+                p.IdConductorNavigation.IdPersonaNavigation = context.Persona.Where(pe => pe.IdPersona == p.IdConductorNavigation.IdPersona).First();
+                p.IdConductorNavigation.IdVehiculoNavigation = context.Vehiculo.Where(ve => ve.IdVehiculo == p.IdConductorNavigation.IdVehiculo).First();
+                
             }
 
             var ConductoresJson = JsonConvert.SerializeObject(new
             {
-                Conductores = Conductores
+                Posiciones = Posiciones
             });
             return ConductoresJson;
         }
@@ -71,6 +73,32 @@ namespace Taxver.Controllers
             {
                 return JsonConvert.SerializeObject(null);
             }
+        }        
+        public ActionResult ActualizarPosicion(string lat, string lng, int idConductor)
+        {
+            var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+            try
+            {
+                var posicion = tc.Posicionconductor.Where(posc => posc.IdConductor == idConductor).FirstOrDefault();
+                if (posicion != null)
+                {
+                    posicion.Lat = lat;
+                    posicion.Lng = lng;
+                    posicion.Status = 1;
+                    tc.Posicionconductor.Update(posicion);
+                    tc.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch(Exception e)
+            {
+                return NotFound(e);
+            }
+            
         }
         private string getSHA1(string password)
         {

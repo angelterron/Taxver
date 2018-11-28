@@ -97,6 +97,63 @@ namespace Taxver.Controllers
                 return NotFound();
             }
         }
+        [HttpPost]
+        public ActionResult CreateCliente([FromBody]Usuarios e)
+        {
+            var context = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+            try
+            {
+                Persona per = new Persona();
+                per.Nombre = e.IdPersonaNavigation.Nombre;
+                per.ApellidoMaterno = e.IdPersonaNavigation.ApellidoMaterno;
+                per.ApellidoPaterno = e.IdPersonaNavigation.ApellidoPaterno;
+                per.Email = e.Nombre;
+                per.Telefono = e.IdPersonaNavigation.Telefono;
+                per.FechaNacimiento = e.IdPersonaNavigation.FechaNacimiento;
+                per.Status = 1;
+                context.Persona.Add(per);
+                context.SaveChanges();
+                Usuarios user = new Usuarios();
+                user.Nombre = e.Nombre;
+                user.Password = getSHA1(e.Password);
+                user.IdPersona = context.Persona.LastOrDefault().IdPersona;
+                user.IdTipoUsuario = 3;
+                user.Status = 1;
+                context.Usuarios.Add(user);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+        [HttpPost]
+        public String ActualizarPosicion([FromBody]Posicionconductor pos)
+        {
+            var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
+            try
+            {
+                var posicion = tc.Posicionconductor.FirstOrDefault(posc => posc.IdConductor == pos.IdConductor);
+                if (posicion != null)
+                {
+                    posicion.Lat = pos.Lat;
+                    posicion.Lng = pos.Lng;
+                    tc.Posicionconductor.Update(posicion);
+                    tc.SaveChanges();
+                    return "si";
+                }
+                else
+                {
+                    return "si";
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+        }
         private string getSHA1(string password)
         {
             SHA1 sha1 = SHA1Managed.Create();
