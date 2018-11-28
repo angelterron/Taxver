@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Taxver.Models.ObjetosPerdidos>
+
+@{
+    ViewData["Title"] = "Ver";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ver Objetos Perdidos</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <input id="controller" type="hidden" value="ObjetosPerdidos" />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles)
+                            </th>
+                            <th>
+                                Viaje
+                            </th>
+                            <th>
+                                Conductor
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Detalles)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdViaje)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdViajeNavigation.IdConductor)
+                            </td>
+                            <td id="status-@Html.DisplayFor(modelItem => @item.IdObjetosPerdidos)">
+                                @if (item.Status == 1)
+                                {
+                                    <a value="@item.IdObjetosPerdidos" style="color:white" class="btn btn-success">Recuperado</a>
+                                }
+                                else if (item.Status == 2)
+                                {
+                                    <button value="@item.IdObjetosPerdidos" class="altaO btn btn-danger">Pendiente</button>
+                                }
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
