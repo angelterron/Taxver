@@ -91,7 +91,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
+                                <a asp-controller="Login" asp-action="Logout" class="dropdown-item"><i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesion</a>
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -129,9 +129,8 @@
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-map-marker-multiple"></i><span class="hide-menu">Viajes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-wrench"></i><span class="hide-menu">Mantenimiento</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Objetos perdidos</span></a></li>
-                        <li class="sidebar-item"><a asp-controller="Login" asp-action="Logout" class="sidebar-link"><i class="mdi mdi-account-settings"></i><span class="hide-menu"> Cerrar Sesion </span></a></li>
+                        <li class="sidebar-item"> <a asp-controller="Mantenimiento" asp-action="Ver" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-wrench"></i><span class="hide-menu">Mantenimiento</span></a></li>
+                        <li class="sidebar-item"> <a asp-controller="ObjetosPerdidos" asp-action="Ver" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-package-variant"></i><span class="hide-menu">Objetos perdidos</span></a></li>
 
                     </ul>
                 </nav>
@@ -249,6 +248,23 @@
                     $("<button value='" + id + "' class='alta btn btn-danger'>Inactivo</button>").appendTo($("#status-" + id + ""));
                 });
             });
+
+            $(document).on("click", '.altaM', function (evt) {
+                var id = $(this).val();
+                $.get("/" + $("#controller").val() + "/Status", { id: $(this).val() }, function (event) {
+                    $("#status-" + id + "").empty();
+                    $("<a id='stD' style='color:white' class='btn btn-success'>Resuelto</a>").appendTo($("#status-" + id + ""));
+                });
+            });
+
+            $(document).on("click", '.altaO', function (evt) {
+                var id = $(this).val();
+                $.get("/" + $("#controller").val() + "/Status", { id: $(this).val() }, function (event) {
+                    $("#status-" + id + "").empty();
+                    $("<a id='stD' style='color:white' class='btn btn-success'>Entregado</a>").appendTo($("#status-" + id + ""));
+                });
+            });
+
             $("#table").dataTable({
                 "language": {
                     "sProcessing": "Procesando...",

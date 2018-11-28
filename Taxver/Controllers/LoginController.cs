@@ -92,7 +92,7 @@ namespace Taxver.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Log_in(LoginModel model)
+        public async Task<IActionResult> Log_in(RegisterModel model)
         {
             if (ModelState.IsValid)
             {

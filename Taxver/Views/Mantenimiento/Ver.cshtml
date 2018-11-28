@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Taxver.Models.Mantenimiento>
+
+@{
+    ViewData["Title"] = "Ver";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ver Mantenimientos</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <input id="controller" type="hidden" value="Mantenimiento" />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mantenimiento
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detalles)
+                            </th>
+                            <th>
+                                Estado
+                            </th>
+                            <th>
+                                Vehiculo
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdMantenimiento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Detalles)
+                                </td>
+                                <td id="status-@Html.DisplayFor(modelItem => @item.IdMantenimiento)">
+                                    @if (item.Status == 1)
+                                    {
+                                        <a value="@item.IdMantenimiento" style="color:white" class="btn btn-success">Resuelto</a>
+                                    }
+                                    else if(item.Status == 2)
+                                    {
+                                        <button value="@item.IdMantenimiento" class="altaM btn btn-danger">Pendiente</button>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdVehiculoNavigation.Placa)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
