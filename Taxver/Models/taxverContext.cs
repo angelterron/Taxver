@@ -50,6 +50,9 @@ namespace Taxver.Models
                 entity.HasIndex(e => e.IdPersona)
                     .HasName("fk_Conductor_Persona_idx");
 
+                entity.HasIndex(e => e.IdUsuario)
+                    .HasName("fk_Conductor_Usuario_idx");
+
                 entity.HasIndex(e => e.IdVehiculo)
                     .HasName("fk_Conductor_Vehiculo_idx");
 
@@ -61,6 +64,10 @@ namespace Taxver.Models
 
                 entity.Property(e => e.IdPersona)
                     .HasColumnName("idPersona")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdUsuario)
+                    .HasColumnName("idUsuario")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.IdVehiculo)
@@ -75,6 +82,11 @@ namespace Taxver.Models
                     .WithMany(p => p.Conductor)
                     .HasForeignKey(d => d.IdPersona)
                     .HasConstraintName("fk_Conductor_Persona");
+
+                entity.HasOne(d => d.IdUsuarioNavigation)
+                    .WithMany(p => p.Conductor)
+                    .HasForeignKey(d => d.IdUsuario)
+                    .HasConstraintName("fk_Conductor_Usuario");
 
                 entity.HasOne(d => d.IdVehiculoNavigation)
                     .WithMany(p => p.Conductor)

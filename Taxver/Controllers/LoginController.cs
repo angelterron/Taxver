@@ -28,7 +28,9 @@ namespace Taxver.Controllers
                 return View();
             }
             else
+            {
                 return RedirectToAction("Inicio", "Principal"); //Action,Controller
+            }                
 
         }
 
@@ -188,7 +190,11 @@ namespace Taxver.Controllers
                     if (model.returnURL == "")
                         return Redirect(model.returnURL);
                     else
+                    {
+                        HttpContext.Session.SetInt32("tipo", log.IdTipoUsuario);
+                        HttpContext.Session.SetInt32("id", log.IdUsuarios);
                         RedirectToAction("Inicio", "Principal");
+                    }                        
                 }
             }
             return RedirectToAction("Index", "Login");
