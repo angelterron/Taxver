@@ -23,7 +23,9 @@ namespace Taxver.Controllers
             foreach (ObjetosPerdidos c in list)
             {
                 c.IdViajeNavigation = tc.Viaje.Where(p => p.IdViaje == c.IdViaje).First();
-                //c.IdViajeNavigation.IdConductorNavigation = tc.Conductor.Where(p => p.IdConductor == c.IdViajeNavigation.IdConductor).First();
+                c.IdViajeNavigation.IdConductorNavigation = tc.Conductor.Where(p => p.IdConductor == c.IdViajeNavigation.IdConductor).First();
+                c.IdViajeNavigation.IdConductorNavigation.IdPersonaNavigation = tc.Persona.Where(p => p.IdPersona == c.IdViajeNavigation.IdConductorNavigation.IdPersona).First();
+                c.IdViajeNavigation.IdPersonaNavigation = tc.Persona.Where(p => p.IdPersona == c.IdViajeNavigation.IdPersona).First();
             }
             return View(list);
         }

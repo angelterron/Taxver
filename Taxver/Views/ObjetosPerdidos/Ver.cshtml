@@ -29,7 +29,7 @@
                                 @Html.DisplayNameFor(model => model.Detalles)
                             </th>
                             <th>
-                                Viaje
+                                Cliente
                             </th>
                             <th>
                                 Conductor
@@ -47,10 +47,10 @@
                                 @Html.DisplayFor(modelItem => item.Detalles)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IdViaje)
+                                @Html.DisplayFor(modelItem => item.IdViajeNavigation.IdPersonaNavigation.Nombre)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.IdViajeNavigation.IdConductor)
+                                @Html.DisplayFor(modelItem => item.IdViajeNavigation.IdConductorNavigation.IdPersonaNavigation.Nombre)
                             </td>
                             <td id="status-@Html.DisplayFor(modelItem => @item.IdObjetosPerdidos)">
                                 @if (item.Status == 1)
