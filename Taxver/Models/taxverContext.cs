@@ -69,6 +69,8 @@ namespace Taxver.Models
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
 
+                entity.Property(e => e.Tarifa).HasColumnType("int(11)");
+
                 entity.HasOne(d => d.IdPersonaNavigation)
                     .WithMany(p => p.Conductor)
                     .HasForeignKey(d => d.IdPersona)
@@ -89,10 +91,12 @@ namespace Taxver.Models
                 entity.HasIndex(e => e.IdCliente)
                     .HasName("fk_Evaluacion_Usuario_idx");
 
+                entity.HasIndex(e => e.IdViaje)
+                    .HasName("fk_Evaluacion_Viaje_idx");
+
                 entity.Property(e => e.IdEvaluacion)
                     .HasColumnName("idEvaluacion")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedOnAdd();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Comentarios).HasColumnType("varchar(45)");
 
@@ -100,6 +104,10 @@ namespace Taxver.Models
 
                 entity.Property(e => e.IdCliente)
                     .HasColumnName("idCliente")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdViaje)
+                    .HasColumnName("idViaje")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
@@ -111,11 +119,10 @@ namespace Taxver.Models
                     .HasForeignKey(d => d.IdCliente)
                     .HasConstraintName("fk_Evaluacion_Usuario");
 
-                entity.HasOne(d => d.IdEvaluacionNavigation)
-                    .WithOne(p => p.Evaluacion)
-                    .HasForeignKey<Evaluacion>(d => d.IdEvaluacion)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Evaluacion_Viaje");
+                entity.HasOne(d => d.IdViajeNavigation)
+                    .WithMany(p => p.Evaluacion)
+                    .HasForeignKey(d => d.IdViaje)
+                    .HasConstraintName("fk_Evaluacion_Viajeid");
             });
 
             modelBuilder.Entity<FechasSeguro>(entity =>
@@ -346,6 +353,10 @@ namespace Taxver.Models
 
                 entity.Property(e => e.Password).HasColumnType("varchar(45)");
 
+                entity.Property(e => e.PhoneId)
+                    .HasColumnName("phoneID")
+                    .HasColumnType("varchar(50)");
+
                 entity.Property(e => e.Status).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.IdPersonaNavigation)
@@ -438,13 +449,17 @@ namespace Taxver.Models
                     .HasColumnName("idViajePosicion")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.IdTipo)
+                    .HasColumnName("idTipo")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.IdViaje)
                     .HasColumnName("idViaje")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.Lat).HasColumnType("int(11)");
+                entity.Property(e => e.Lat).HasColumnType("varchar(50)");
 
-                entity.Property(e => e.Lng).HasColumnType("int(11)");
+                entity.Property(e => e.Lng).HasColumnType("varchar(50)");
 
                 entity.HasOne(d => d.IdViajeNavigation)
                     .WithMany(p => p.Viajeposicion)

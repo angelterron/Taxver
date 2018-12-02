@@ -18,6 +18,7 @@ namespace Taxver.Models
         public int? Status { get; set; }
         public string Descripcion { get; set; }
         public int? IdPersona { get; set; }
+        public string PhoneId { get; set; }
 
         public Persona IdPersonaNavigation { get; set; }
         public TipoUsuario IdTipoUsuarioNavigation { get; set; }

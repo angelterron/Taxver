@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Taxver.Models
 {
@@ -18,7 +17,6 @@ namespace Taxver.Models
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-        [DataType(DataType.Date)]
         public DateTime? FechaNacimiento { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }

@@ -261,3 +261,10 @@ __pycache__/
 *.pyc
 /Taxver/wwwroot/Fotos/1AbrahamOlveraSantos.jpg
 /Taxver/wwwroot/Fotos/6Jonathan IsmaelLopezLopez.jpg
+/Taxver/.sonarqube
+/.sonarqube
+/Taxver/wwwroot/Fotos/9RobertoSanchezCordero.jpg
+/Taxver/wwwroot/Fotos/12CocoCacaCico.jpg
+/Taxver/wwwroot/Fotos/11Jonathan IsmaelLaraCanto.jpg
+/Taxver/wwwroot/Fotos/10RobertoLopezMijangos.jpg
+/Taxver/Models/VehiculosSeguro.cs

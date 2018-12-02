@@ -11,8 +11,9 @@ namespace Taxver.Models
         public string Comentarios { get; set; }
         public int? Status { get; set; }
         public string Descripcion { get; set; }
+        public int? IdViaje { get; set; }
 
         public Usuarios IdClienteNavigation { get; set; }
-        public Viaje IdEvaluacionNavigation { get; set; }
+        public Viaje IdViajeNavigation { get; set; }
     }
 }
