@@ -27,7 +27,7 @@ namespace Taxver.Controllers
         public ActionResult Ver()
         {
             var tc = HttpContext.RequestServices.GetService(typeof(taxverContext)) as taxverContext;
-            var list = tc.Conductor;
+            var list = tc.Conductor.Where(c => c.IdUsuario == HttpContext.Session.GetInt32("id"));
             foreach (Conductor c in list)
             {
                 c.IdPersonaNavigation = tc.Persona.Where(p => p.IdPersona == c.IdPersona).First();
@@ -98,7 +98,7 @@ namespace Taxver.Controllers
                     tc.SaveChanges();
                 }
                 c.IdPersonaNavigation.FechaNacimiento = fechaN;
-                c.IdPersonaNavigation.Status = 1;
+                c.IdPersonaNavigation.Status = 1;                
                 tc.Persona.Add(c.IdPersonaNavigation);
                 tc.SaveChanges();
                 try
@@ -125,6 +125,8 @@ namespace Taxver.Controllers
                 }                
                 c.IdPersona = tc.Persona.Last().IdPersona;
                 c.Status = 1;
+                c.Tarifa = 9;
+                c.IdUsuario = HttpContext.Session.GetInt32("id");
                 tc.Conductor.Add(c);
                 tc.SaveChanges();
                 Posicionconductor pos = new Posicionconductor();

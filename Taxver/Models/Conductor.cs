@@ -17,8 +17,11 @@ namespace Taxver.Models
         public int? IdPersona { get; set; }
         public string Foto { get; set; }
         public int? Status { get; set; }
+        public int? Tarifa { get; set; }
+        public int? IdUsuario { get; set; }
 
         public Persona IdPersonaNavigation { get; set; }
+        public Usuarios IdUsuarioNavigation { get; set; }
         public Vehiculo IdVehiculoNavigation { get; set; }
         [JsonIgnore]
         public ICollection<Posicionconductor> Posicionconductor { get; set; }
