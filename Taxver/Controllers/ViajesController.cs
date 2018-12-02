@@ -23,6 +23,8 @@ namespace Taxver.Controllers
             foreach (Viaje c in list)
             {
                 c.IdConductorNavigation = tc.Conductor.Where(n => n.IdConductor == c.IdConductor).First();
+                c.IdPersonaNavigation = tc.Persona.Where(n => n.IdPersona == c.IdPersona).First();
+                c.IdConductorNavigation.IdPersonaNavigation = tc.Persona.Where(n => n.IdPersona == c.IdPersona).First();
             }
             return View(list);
         }

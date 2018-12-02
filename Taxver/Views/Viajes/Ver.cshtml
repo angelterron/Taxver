@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Taxver.Models.Viaje>
+
+@{
+    ViewData["Title"] = "Ver";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ver Mantenimientos</h4>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <input id="controller" type="hidden" value="Mantenimiento" />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                </div>
+                <table id="table" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Num. Viaje
+                            </th>
+                            <th>
+                                Conductor
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Kilometros
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdViaje)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdConductorNavigation.IdPersonaNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdPersonaNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Kilometros)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
